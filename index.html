@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+              url("https://raw.githubusercontent.com/esceuelademusciadecalasparra/emmc/refs/heads/main/FOTO%20FACHADA%20INTERIOR%20ESCUELA.jpg");
+        color: white;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+      }
+
+
+
+      h1, h2, h3, h6 {
+        margin: 10px 0;
+      }
+
+      hr {
+        border: 1px solid #ffffff55;
+        margin: 20px 0;
+      }
+
+      img {
+        margin-bottom: 10px;
+      }
+
+      /* Contenedor del mensaje personalizado */
+      #mensaje {
+        margin: 20px auto;
+        max-width: 1000px;
+        background: white;
+        color: black;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: left;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Enlaces dentro del mensaje */
+      #mensaje a {
+        color: #4b6cb7;
+        text-decoration: none;
+      }
+
+      #mensaje a:hover {
+        text-decoration: underline;
+      }
+
+      /* Ajuste para listas o textos */
+      #mensaje p, #mensaje li, #mensaje ol {
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      /* Estilo para los trimestres */
+      .trimestre {
+        margin-bottom: 20px;
+      }
+
+      .trimestre-titulo {
+        background-color: #ffffff;
+        color: #4b6cb7;
+        padding: 10px;
+        margin: 0;
+        cursor: pointer;
+        text-align: left;
+        font-size: 18px;
+        border-radius: 6px;
+        transition: background-color 0.2s;
+      }
+
+
+      flecha {
+        margin-left: 10px;
+        font-size: 18px;
+        transition: transform 0.3s ease;
+      }
+
+      .trimestre-titulo:hover {
+        background-color: #dbe5f0;
+      }
+
+      .trimestre-contenido {
+        display: none;
+        padding: 10px 20px;
+        background-color: white;
+        color: black;
+        border-radius: 6px;
+        margin-top: 10px;
+      }
+
+            /* Estilo para el botón de salir */
+      .logout-container {
+        margin-top: 20px;
+      }
+
+      .logout-container button {
+        background-color: #d9534f;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .logout-container button:hover {
+        background-color: #c9302c;
+      }
+
+      .export-container button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.export-container button:hover {
+  background-color: #45a049;
+}
+
+
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+
+  </head>
+  <body>
+    <img src='https://raw.githubusercontent.com/esceuelademusciadecalasparra/emmc/refs/heads/main/LOGO-ESCUELA-FACEBOOK.png' width="100">
+    <h1>Escuela Municipal de Música de Calasparra</h1>
+    <h2><b>Portal del Alumno y Familia</b></h2>
+    <hr>
+    <h3>Bienvenido/a,<br><span id="nombre"><?= nombre ?></h3>
+
+        <div class="logout-container">
+        <button onclick="logout()">Salir</button>
+        </div>
+
+
+    <hr>
+
+<div class="export-container">
+  <button onclick="exportarPDF()">Exportar trimestre a PDF</button>
+</div>
+
+
+<script>
+
+message += "<div class='trimestre'>";
+message += "<h4 class='trimestre-titulo' onclick='toggleTrimestre(this)'>1º TRIMESTRE <i class='fas fa-chevron-down flecha'></i></h4>";
+message += "<div class='trimestre-contenido'>"; // Contenido oculto al inicio
+message += "<hr>";
+
+if(hojaLM.getRange(n,3).getValue()!="") {
+  message += "<p style='background-color: #CEE3F6;'><b>Lenguaje musical:</b> " + hojaLM.getRange(n,3).getValue();
+  message += "<br><b>Nota: </b>" + hojaLM.getRange(n,4).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Ritmo: </b>" + hojaLM.getRange(n,5).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Entonación: </b>" + hojaLM.getRange(n,6).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Dictado: </b>" + hojaLM.getRange(n,7).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Teoría: </b>" + hojaLM.getRange(n,8).getValue();
+  message += "<br><b>Faltas:</b> " + hojaLM.getRange(n,9).getValue();
+  message += "<br><b>Conducta:</b> " + hojaLM.getRange(n,10).getValue();
+  message += "<br><b>Comentario:</b> " + hojaLM.getRange(n,11).getValue() + "</p>";
+}
+
+if(hoja1I.getRange(n,3).getValue()!="") {
+  message += "<p style='background-color: #F2F5A9;'><b>Instrumento: </b>" + hoja1I.getRange(n,3).getValue();
+  message += "<br><b>Nota: </b>" + hoja1I.getRange(n,4).getValue();
+  message += "<br><b>Faltas:</b> " + hoja1I.getRange(n,5).getValue();
+  message += "<br><b>Conducta:</b> " + hoja1I.getRange(n,6).getValue();
+  message += "<br><b>Comentario:</b> " + hoja1I.getRange(n,7).getValue() + "</p>";
+}
+
+if(hoja2I.getRange(n,3).getValue()!=""){ 
+  message += "<p style='background-color: #E1F5A9;'><b>Instrumento: </b>" + hoja2I.getRange(n,3).getValue();
+  message += "<br><b>Nota: </b>" + hoja2I.getRange(n,4).getValue();
+  message += "<br><b>Faltas:</b> " + hoja2I.getRange(n,5).getValue();
+  message += "<br><b>Conducta:</b> " + hoja2I.getRange(n,6).getValue();
+  message += "<br><b>Comentario:</b> " + hoja2I.getRange(n,7).getValue() + "</p>";
+}
+
+message += "</div>"; // Cierra trimestre-contenido
+message += "</div>"; // Cierra trimestre
+
+// Segundo trimestre
+message += "<div class='trimestre'>";
+message += "<h4 class='trimestre-titulo' onclick='toggleTrimestre(this)'>2º TRIMESTRE <i class='fas fa-chevron-down flecha'></i></h4>";
+message += "<div class='trimestre-contenido'>"; // Contenido oculto al inicio
+message += "<hr>";
+
+if(hojaLM.getRange(n,3).getValue()!="") {
+  message += "<p style='background-color: #CEE3F6;'><b>Lenguaje musical:</b> " + hojaLM.getRange(n,3).getValue();
+  message += "<br><b>Nota: </b>" + hojaLM.getRange(n,12).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Ritmo: </b>" + hojaLM.getRange(n,13).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Entonación: </b>" + hojaLM.getRange(n,14).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Dictado: </b>" + hojaLM.getRange(n,15).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Teoría: </b>" + hojaLM.getRange(n,16).getValue();
+  message += "<br><b>Faltas:</b> " + hojaLM.getRange(n,17).getValue();
+  message += "<br><b>Conducta:</b> " + hojaLM.getRange(n,18).getValue();
+  message += "<br><b>Comentario:</b> " + hojaLM.getRange(n,19).getValue() + "</p>";
+}
+
+if(hoja1I.getRange(n,3).getValue()!="") {
+  message += "<p style='background-color: #F2F5A9;'><b>Instrumento: </b>" + hoja1I.getRange(n,3).getValue();
+  message += "<br><b>Nota: </b>" + hoja1I.getRange(n,8).getValue();
+  message += "<br><b>Faltas:</b> " + hoja1I.getRange(n,9).getValue();
+  message += "<br><b>Conducta:</b> " + hoja1I.getRange(n,10).getValue();
+  message += "<br><b>Comentario:</b> " + hoja1I.getRange(n,11).getValue() + "</p>";
+}
+
+if(hoja2I.getRange(n,3).getValue()!="") {
+  message += "<p style='background-color: #E1F5A9;'><b>Instrumento: </b>" + hoja2I.getRange(n,3).getValue();
+  message += "<br><b>Nota: </b>" + hoja2I.getRange(n,8).getValue();
+  message += "<br><b>Faltas:</b> " + hoja2I.getRange(n,9).getValue();
+  message += "<br><b>Conducta:</b> " + hoja2I.getRange(n,10).getValue();
+  message += "<br><b>Comentario:</b> " + hoja2I.getRange(n,11).getValue() + "</p>";
+}
+
+message += "</div>"; // Cierra trimestre-contenido
+message += "</div>"; // Cierra trimestre
+
+// Tercer trimestre
+message += "<div class='trimestre'>";
+message += "<h4 class='trimestre-titulo' onclick='toggleTrimestre(this)'>3º TRIMESTRE <i class='fas fa-chevron-down flecha'></i></h4>";
+message += "<div class='trimestre-contenido'>"; // Contenido oculto al inicio
+message += "<hr>";
+
+if(hojaLM.getRange(n,3).getValue()!="") {
+  message += "<p style='background-color: #CEE3F6;'><b>Lenguaje musical:</b> " + hojaLM.getRange(n,3).getValue();
+  message += "<br><b>Nota: </b>" + hojaLM.getRange(n,20).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Ritmo: </b>" + hojaLM.getRange(n,21).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Entonación: </b>" + hojaLM.getRange(n,22).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Dictado: </b>" + hojaLM.getRange(n,23).getValue();
+  message += "<br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>Teoría: </b>" + hojaLM.getRange(n,24).getValue();
+  message += "<br><b>Faltas:</b> " + hojaLM.getRange(n,25).getValue();
+  message += "<br><b>Conducta:</b> " + hojaLM.getRange(n,26).getValue();
+  message += "<br><b>Comentario:</b> " + hojaLM.getRange(n,27).getValue() + "</p>";
+}
+
+if(hoja1I.getRange(n,3).getValue()!="") {
+  message += "<p style='background-color: #F2F5A9;'><b>Instrumento: </b>" + hoja1I.getRange(n,3).getValue();
+  message += "<br><b>Nota: </b>" + hoja1I.getRange(n,12).getValue();
+  message += "<br><b>Faltas:</b> " + hoja1I.getRange(n,13).getValue();
+  message += "<br><b>Conducta:</b> " + hoja1I.getRange(n,14).getValue();
+  message += "<br><b>Comentario:</b> " + hoja1I.getRange(n,15).getValue() + "</p>";
+}
+
+if(hoja2I.getRange(n,3).getValue()!="") {
+  message += "<p style='background-color: #E1F5A9;'><b>Instrumento: </b>" + hoja2I.getRange(n,3).getValue();
+  message += "<br><b>Nota: </b>" + hoja2I.getRange(n,12).getValue();
+  message += "<br><b>Faltas:</b> " + hoja2I.getRange(n,13).getValue();
+  message += "<br><b>Conducta:</b> " + hoja2I.getRange(n,14).getValue();
+  message += "<br><b>Comentario:</b> " + hoja2I.getRange(n,15).getValue() + "</p>";
+}
+
+message += "</div>"; // Cierra trimestre-contenido
+message += "</div>"; // Cierra trimestre
+
+message += "<p align=right><i>Resultado Promoción: <b>Ordinaria:</b>" + hojaAL.getRange(n,9).getValue() + "</p></i>";
+message += "<br>";
+
+</script>
+    <!-- Contenedor de mensaje dinámico con estilo -->
+    <div id="mensaje"></div>
+
+    <!-- Botón exportar PDF debajo -->
+
+
+    <hr>
+    <h6>ESCUELA MUNICIPAL DE MÚSICA DE CALASPARRA - EMMC - PORTAL DEL ALUMNO Y FAMILIA</h6>
+
+    <!-- Script para cargar el contenido personalizado del alumno -->
+    <script>
+      const nombre = "<?= nombre ?>";
+      google.script.run.withSuccessHandler(function(html) {
+        document.getElementById("mensaje").innerHTML = html;
+      }).generarMensajeAlumnoPorNombre(nombre);
+    </script>
+
+        <script>
+      function toggleTrimestre(element) {
+        const contenido = element.nextElementSibling;
+        const isVisible = contenido.style.display === "block";
+
+        // Oculta o muestra el contenido
+        contenido.style.display = isVisible ? "none" : "block";
+
+        // Cambia la flechita
+        element.innerHTML = element.innerHTML.replace(isVisible ? "⯆" : "⯈", isVisible ? "⯈" : "⯆");
+      }
+    </script>
+    <script>
+            // Función de logout
+<script>
+  function logout() {
+    google.script.run
+      .withSuccessHandler(function(html) {
+        document.open();
+        document.write(html);
+        document.close();
+      })
+      .cargarLogout(); // esta función la defines en Code.gs
+  }
+</script>
+
+
+<script>
+function exportarPDF() {
+  const nombre = "<?= nombre ?>";
+
+  // Reunir contenido visible
+  const visibles = document.querySelectorAll('.trimestre-contenido');
+  let contenidoExportar = "";
+
+  visibles.forEach(section => {
+    if (getComputedStyle(section).display !== 'none') {
+      contenidoExportar += section.previousElementSibling?.outerHTML || "";
+      contenidoExportar += section.outerHTML;
+    }
+  });
+
+  if (!contenidoExportar) {
+    alert("Primero debes desplegar un trimestre para exportarlo.");
+    return;
+  }
+
+  // Encabezado institucional
+  const encabezado = `
+    <div style="text-align: center; font-family: Arial, sans-serif;">
+      <h2 style="margin: 0;">ESCUELA MUNICIPAL DE MÚSICA DE CALASPARRA</h2>
+      <p style="margin: 0;">Ayuntamiento de Calasparra</p>
+      <p style="margin: 0;">Concejalía de Escuela de Música, Agricultura, Agua y Ganadería</p>
+      <p style="margin: 0;">Código de Centro: 30</p>
+      <p style="margin: 0;">C/ MAYOR, 4 - 30420 CALASPARRA</p>
+      <p style="margin: 0;">Tel: 968745135 - escuelademusicajosemoreno@gmail.com</p>
+      <hr style="margin-top: 10px;">
+    </div>
+  `;
+
+  // Contenedor para PDF
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = `
+    ${encabezado}
+    <h3 style="color: #4b6cb7; font-family: Arial, sans-serif;">Alumno: ${nombre}</h3>
+    ${contenidoExportar}
+  `;
+
+  const opt = {
+    margin: 0.5,
+    filename: `Trimestre_${nombre}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(wrapper).save();
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>
+
+
+
+
+

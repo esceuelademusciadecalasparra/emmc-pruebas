@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+              url("https://raw.githubusercontent.com/esceuelademusciadecalasparra/emmc/refs/heads/main/FOTO%20FACHADA%20INTERIOR%20ESCUELA.jpg");
+        color: white;
+        text-align: center;
+        margin: 0;
+        padding: 20px;
+      }
+
+
+      h1, h2, h3, h6 {
+        margin: 10px 0;
+      }
+
+      hr {
+        border: 1px solid #ffffff55;
+        margin: 20px 0;
+      }
+
+      img {
+        margin-bottom: 10px;
+      }
+
+      /* Contenedor del mensaje personalizado */
+      #mensaje {
+        margin: 20px auto;
+        max-width: 1000px;
+        background: white;
+        color: black;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: left;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Enlaces dentro del mensaje */
+      #mensaje a {
+        color: #4b6cb7;
+        text-decoration: none;
+      }
+
+      #mensaje a:hover {
+        text-decoration: underline;
+      }
+
+      /* Ajuste para listas o textos */
+      #mensaje p, #mensaje li, #mensaje ol {
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      /* Estilo para los trimestres */
+      .trimestre {
+        margin-bottom: 20px;
+      }
+
+      .trimestre-titulo {
+        background-color: #ffffff;
+        color: #4b6cb7;
+        padding: 10px;
+        margin: 0;
+        cursor: pointer;
+        text-align: left;
+        font-size: 18px;
+        border-radius: 6px;
+        transition: background-color 0.2s;
+      }
+
+
+      flecha {
+        margin-left: 10px;
+        font-size: 18px;
+        transition: transform 0.3s ease;
+      }
+
+      .trimestre-titulo:hover {
+        background-color: #dbe5f0;
+      }
+
+      .trimestre-contenido {
+        display: none;
+        padding: 10px 20px;
+        background-color: white;
+        color: black;
+        border-radius: 6px;
+        margin-top: 10px;
+      }
+
+            /* Estilo para el botón de salir */
+      .logout-container {
+        margin-top: 20px;
+      }
+
+      .logout-container button {
+        background-color: #d9534f;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .logout-container button:hover {
+        background-color: #c9302c;
+      }
+
+      .export-container button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.export-container button:hover {
+  background-color: #45a049;
+}
+    .container { 
+      max-width: 1200px; 
+      margin: 20px auto; 
+      padding: 0 20px; 
+      
+      }
+
+            .accordion {
+        background-color: #0073aa;
+        color: white;
+        cursor: pointer;
+        padding: 12px;
+        width: 100%;
+        text-align: left;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+      }
+
+      .accordion:hover {
+        background-color: #005f8d;
+      }
+
+      .panel {
+        display: none;
+        overflow: hidden;
+        margin-bottom: 16px;
+      }
+.contenedor-evaluacion {
+    background-color: #f9f9f9;       /* Fondo suave */
+    border: 2px solid white;         /* Borde blanco */
+    border-radius: 12px;             /* Bordes redondeados */
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1500px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: #000000;
+    text-align: left;
+  }
+
+      .tabla-evaluacion {
+      width: 100%;
+      background-color: white;
+      border-collapse: collapse;
+    }
+
+    .tabla-evaluacion thead {
+      background-color: #eeeeee;
+    }
+
+    .tabla-evaluacion th,
+    .tabla-evaluacion td {
+      text-align: left !important;
+      color: black !important;
+      padding: 8px;
+    }
+
+    .btn-editar {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+    }
+
+    .btn-editar:hover {
+      background-color: #218838;
+    }
+
+    .subaccordion {
+  background-color: #0096c7;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+.subaccordion:hover {
+  background-color: #0077a6;
+}
+
+.subpanel {
+  display: none;
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+    </style>
+
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<base target="_top">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<!-- DataTables Editor CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/editor/2.0.0/css/editor.dataTables.min.css">
+
+<!-- DataTables Editor JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/editor/2.0.0/js/dataTables.editor.min.js"></script>
+
+  </head>
+  <body>
+    <img src='https://raw.githubusercontent.com/esceuelademusciadecalasparra/emmc/refs/heads/main/LOGO-ESCUELA-FACEBOOK.png' width="100">
+    <h1>Escuela Municipal de Música de Calasparra</h1>
+    <h2><b>Portal del Profesor y Administración</b></h2>
+    <hr>
+    <h3>Bienvenido/a,<br><span id="nombre"><?= nombre ?></h3>
+
+        <div class="logout-container">
+        <button onclick="logoutProfesores()">Salir</button>
+        </div>
+
+
+    <hr>
+
+
+
+
+
+
+
+
+<div class="contenedor-evaluacion">
+  <h2>MÓDULO GESTIÓN</h2>
+  <button class="accordion">ALUMNOS</button>
+
+    <table class="tabla-evaluacion display" id="tablaAlumnos">
+      <thead><tr id="cabeceraAlumnos"></tr></thead>
+      <tbody id="cuerpoAlumnos"></tbody>
+    </table>
+
+
+    <h2>MÓDULO EVALUACIÓN</h2>
+
+<button class="accordion">Lenguaje Musical</button>
+<div class="panel">
+
+  <!-- Subacordeón 1º Trimestre -->
+  <button class="subaccordion">1º Trimestre</button>
+  <div class="subpanel">
+    <table class="tabla-evaluacion display" id="tablaLenguajeT1">
+      <thead><tr id="cabeceraLenguajeT1"></tr></thead>
+      <tbody id="cuerpoLenguajeT1"></tbody>
+    </table>
+  </div>
+
+  <!-- Subacordeón 2º Trimestre -->
+  <button class="subaccordion">2º Trimestre</button>
+  <div class="subpanel">
+    <table class="tabla-evaluacion display" id="tablaLenguajeT2">
+      <thead><tr id="cabeceraLenguajeT2"></tr></thead>
+      <tbody id="cuerpoLenguajeT2"></tbody>
+    </table>
+  </div>
+
+  <!-- Subacordeón 3º Trimestre -->
+  <button class="subaccordion">3º Trimestre</button>
+  <div class="subpanel">
+    <table class="tabla-evaluacion display" id="tablaLenguajeT3">
+      <thead><tr id="cabeceraLenguajeT3"></tr></thead>
+      <tbody id="cuerpoLenguajeT3"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- Acordeón 1º Instrumento -->
+<button class="accordion">1º Instrumento</button>
+<div class="panel">
+  <button class="subaccordion">1º Trimestre</button>
+  <div class="subpanel">
+    <table class="tabla-evaluacion display" id="tablaInst1T1">
+      <thead><tr id="cabeceraInst1T1"></tr></thead>
+      <tbody id="cuerpoInst1T1"></tbody>
+    </table>
+  </div>
+  <button class="subaccordion">2º Trimestre</button>
+  <div class="subpanel">
+    <table class="tabla-evaluacion display" id="tablaInst1T2">
+      <thead><tr id="cabeceraInst1T2"></tr></thead>
+      <tbody id="cuerpoInst1T2"></tbody>
+    </table>
+  </div>
+  <button class="subaccordion">3º Trimestre</button>
+  <div class="subpanel">
+    <table class="tabla-evaluacion display" id="tablaInst1T3">
+      <thead><tr id="cabeceraInst1T3"></tr></thead>
+      <tbody id="cuerpoInst1T3"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Acordeón 2º Instrumento -->
+<button class="accordion">2º Instrumento</button>
+<div class="panel">
+  <button class="subaccordion">1º Trimestre</button>
+  <div class="subpanel">
+    <table class="tabla-evaluacion display" id="tablaInst2T1">
+      <thead><tr id="cabeceraInst2T1"></tr></thead>
+      <tbody id="cuerpoInst2T1"></tbody>
+    </table>
+  </div>
+  <button class="subaccordion">2º Trimestre</button>
+  <div class="subpanel">
+    <table class="tabla-evaluacion display" id="tablaInst2T2">
+      <thead><tr id="cabeceraInst2T2"></tr></thead>
+      <tbody id="cuerpoInst2T2"></tbody>
+    </table>
+  </div>
+  <button class="subaccordion">3º Trimestre</button>
+  <div class="subpanel">
+    <table class="tabla-evaluacion display" id="tablaInst2T3">
+      <thead><tr id="cabeceraInst2T3"></tr></thead>
+      <tbody id="cuerpoInst2T3"></tbody>
+    </table>
+  </div>
+</div>
+
+
+  <script>
+    // Acordeón
+    document.querySelectorAll('.accordion').forEach(btn => {
+      btn.addEventListener('click', function () {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        panel.style.display = (panel.style.display === "block") ? "none" : "block";
+      });
+    });
+
+    // Subacordeones dentro del panel
+document.querySelectorAll('.subaccordion').forEach(btn => {
+  btn.addEventListener('click', function () {
+    this.classList.toggle("active");
+    const subpanel = this.nextElementSibling;
+    subpanel.style.display = (subpanel.style.display === "block") ? "none" : "block";
+  });
+});
+
+
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraAlumnos', 'cuerpoAlumnos', 'tablaAlumnos');
+}).getAlumnos("ALUMNOS");
+
+// Cargar tabla de Lenguaje Musical (todos los trimestres)
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraLenguajeT1', 'cuerpoLenguajeT1', 'tablaLenguajeT1');
+}).getEvaluarLenguajePorTrimestre("1");
+
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraLenguajeT2', 'cuerpoLenguajeT2', 'tablaLenguajeT2');
+}).getEvaluarLenguajePorTrimestre("2");
+
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraLenguajeT3', 'cuerpoLenguajeT3', 'tablaLenguajeT3');
+}).getEvaluarLenguajePorTrimestre("3");
+
+// Cargar tablas de 1º y 2º Instrumento (todos los trimestres)
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraInst1T1', 'cuerpoInst1T1', 'tablaInst1T1');
+}).getEvaluarInstrumentoPorTrimestre("EVALUAR 1º INSTRUMENTO", 1);
+
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraInst1T2', 'cuerpoInst1T2', 'tablaInst1T2');
+}).getEvaluarInstrumentoPorTrimestre("EVALUAR 1º INSTRUMENTO", 2);
+
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraInst1T3', 'cuerpoInst1T3', 'tablaInst1T3');
+}).getEvaluarInstrumentoPorTrimestre("EVALUAR 1º INSTRUMENTO", 3);
+
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraInst2T1', 'cuerpoInst2T1', 'tablaInst2T1');
+}).getEvaluarInstrumentoPorTrimestre("EVALUAR 2º INSTRUMENTO", 1);
+
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraInst2T2', 'cuerpoInst2T2', 'tablaInst2T2');
+}).getEvaluarInstrumentoPorTrimestre("EVALUAR 2º INSTRUMENTO", 2);
+
+google.script.run.withSuccessHandler(data => {
+  renderTabla(data, 'cabeceraInst2T3', 'cuerpoInst2T3', 'tablaInst2T3');
+}).getEvaluarInstrumentoPorTrimestre("EVALUAR 2º INSTRUMENTO", 3);
+
+function renderTabla(data, idCabecera, idCuerpo, idTabla) {
+  const headers = data.headers;
+  const rows = data.rows;
+
+  const headerRow = document.getElementById(idCabecera);
+  const body = document.getElementById(idCuerpo);
+
+  // Limpiar la tabla existente
+  headerRow.innerHTML = '';
+  body.innerHTML = '';
+
+  // Agregar los encabezados
+  headers.forEach(header => {
+    const th = document.createElement("th");
+    th.textContent = header;
+    headerRow.appendChild(th);
+  });
+
+  // Agregar la columna de "Acciones" para el botón de guardar
+  const thEdit = document.createElement("th");
+  thEdit.textContent = "Acciones";
+  thEdit.style.display = "none";
+  headerRow.appendChild(thEdit);
+
+  // Agregar las filas
+  rows.forEach((row, rowIndex) => {
+    const tr = document.createElement("tr");
+    row.forEach((cell, colIndex) => {
+      const td = document.createElement("td");
+      td.textContent = cell;
+      td.setAttribute("data-row", rowIndex);
+      td.setAttribute("data-col", colIndex);
+
+      tr.appendChild(td);
+    });
+
+    // Botón de guardar
+    const tdEdit = document.createElement("td");
+    const btnSave = document.createElement("button");
+        thEdit.style.display = "none";
+    btnSave.textContent = "Guardar";
+    btnSave.className = "btn-editar";
+
+    btnSave.onclick = function() {
+      guardarCambios(rowIndex, idTabla); // Guardar los cambios de esa fila
+    };
+
+
+    tdEdit.style.display = "none"; // <-- aquí lo ocultas
+
+    tdEdit.appendChild(btnSave);
+    tr.appendChild(tdEdit);
+
+    body.appendChild(tr);
+  });
+
+  // Inicializar DataTable
+  $('#' + idTabla).DataTable();
+}
+
+
+  // Inicializar DataTable solo después de renderizar
+  setTimeout(function() {
+    $('#' + idTabla).DataTable();
+  }, 500);  // Pequeño retraso para asegurar que la tabla se ha renderizado
+
+
+
+// Cuando se hace clic en el botón "Guardar General"
+document.getElementById("guardarGeneralBtn").addEventListener("click", function() {
+  const tablas = ['tablaLenguajeT1', 'tablaLenguajeT2', 'tablaLenguajeT3', 'tablaInst1T1', 'tablaInst1T2', 'tablaInst1T3', 'tablaInst2T1', 'tablaInst2T2', 'tablaInst2T3']; // Aquí colocas todos los ids de las tablas que deseas guardar
+  let todosLosDatos = [];
+
+  tablas.forEach(tablaId => {
+    const tabla = document.getElementById(tablaId);
+    const filas = tabla.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    filas.forEach(fila => {
+      let filaDatos = [];
+      const celdas = fila.getElementsByTagName('td');
+      for (let i = 0; i < celdas.length - 1; i++) { // Omitir la columna de "Acciones"
+        filaDatos.push(celdas[i].textContent); // Recoger los datos de las celdas
+      }
+      todosLosDatos.push(filaDatos);
+    });
+  });
+
+  // Enviar los datos a Google Sheets
+  google.script.run.guardarTodosLosDatos(todosLosDatos);
+  alert("¡Todos los cambios han sido guardados correctamente!");
+});
+
+
+  </script>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+  function logoutProfesores() {
+    google.script.run
+      .withSuccessHandler(function(html) {
+        document.open();
+        document.write(html);
+        document.close();
+      })
+      .cargarLogoutProfesores(); // esta función la defines en Code.gs
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<style>
+  /* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Fondo general */
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+              url("https://raw.githubusercontent.com/esceuelademusciadecalasparra/emmc/refs/heads/main/FOTO%20FACHADA%20INTERIOR%20ESCUELA.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Contenedor del login */
+.login-container {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Título */
+.login-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Campos del formulario */
+.login-container input[type="email"],
+.login-container input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.login-container input:focus {
+  border-color: #4b6cb7;
+  outline: none;
+}
+
+/* Botón */
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4b6cb7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #3a55a0;
+}
+
+/* Enlace opcional */
+.login-container .forgot {
+  margin-top: 15px;
+  display: block;
+  font-size: 14px;
+  color: #4b6cb7;
+  text-decoration: none;
+}
+
+.login-container .forgot:hover {
+  text-decoration: underline;
+}
+
+.login-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 10;
+}
+/* Contenedor del botón para colocarlo debajo del login */
+.info-btn-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Botón de info */
+.info-btn {
+  background-color: #4b6cb7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.info-btn:hover {
+  background-color: #3a55a0;
+}
+
+/* Botón */
+#openModalBtn {
+  background-color: #4b6cb7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+#openModalBtn:hover {
+  background-color: #3a55a0;
+}
+
+/* Fondo del modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+/* Contenido del modal */
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  color: #333;
+}
+
+/* Botón de cerrar */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+
+
+</style>
+
+<html>
+  <head>
+    <base target="_top">
+    <title>Login Escuela de Música</title>
+    <link rel="icon" href="https://calasparra.org/wp-content/uploads/2020/06/logoEscuelaMusica.jpg" type="image/png">
+  </head>
+  <body>
+    <div class="login-header">
+    <h2>Portal del Alumno y Familia - Escuela de Música de Calasparra</h2>
+    <h3>Servicio Central de Autenticación</h3>
+    <hr>
+    </div>
+  <div class="login-container">
+    <label>Email:</label><br>
+    <input type="email" id="email"><br><br>
+
+    <label for="fecha">Contraseña: <br> 
+    <input type="password" id="password" name="password"><br>
+        <a href="mailto:pabloescuelamusica@gmail.com, escuelademusicajosemoreno@gmail.com" class="forgot">¿Olvidaste tu contraseña?</a>
+
+
+<br>
+    <button onclick="login()">Entrar</button>
+
+    <p id="resultado" style="color: red;"></p>
+  </div>
+    <script>
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    google.script.run.withSuccessHandler(function(respuesta) {
+      console.log("Respuesta del login:", respuesta);
+
+      if (respuesta.exito) {
+        google.script.run.withSuccessHandler(function(html) {
+          document.open();
+          document.write(html);
+          document.close();
+        }).cargarIndex(respuesta.nombre, respuesta.fila);
+      } else {
+        document.getElementById("resultado").innerText = respuesta.mensaje;
+      }
+    }).verificarLogin(email, password);
+  }
+    </script>
+
+<!-- Botón para abrir el modal -->
+<div class="info-btn-container">
+  <button id="openModalBtn" class="info-btn">Más información</button>
+</div>
+
+<!-- Modal oculto por defecto -->
+<div id="infoModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2><i><b>INFORMACIÓN IMPORTANTE</b></i></h2>
+    <ol>
+      <p><b><i>Acceso: </i></b>Su correo electrónico será el que tiene registrado con la escuela de música, al mismo al que le ha llegado el enlace de acceso.</p>
+      <p><b><i>Contraseña: </i></b>Como ya hemos explicado antes, la contraseña está formada por la primera letra en minúscula del nombre del alumno y su fecha.</p>
+      <p><b><i>Nota importante: </i></b>SI LA INICIAL DEL ALUMNO LLEVA TILDE, PRUEBE CON LA INICIAL <b>CON</b> TILDE. TAMBIÉN PUEDE QUE SE HAYA ELIMINADO. PRUEBE DE LAS DOS FORMAS PARA EVITAR ERRORES.</p>
+      <p><b><i>Soporte: </i></b>Si necesita más información, puede enviar un e-mail a:
+        <br><a href="mailto:pabloescuelamusica@gmail.com">Pablo L. (Desarrollo)</a> //
+        <a href="mailto:escuelademusicajosemoreno@gmail.com">Escuela Municipal de Música de Calasparra</a>
+      </p>
+    </ol>
+  </div>
+</div>
+<script>
+  const modal = document.getElementById("infoModal");
+  const btn = document.getElementById("openModalBtn");
+  const span = document.querySelector(".close");
+
+  btn.onclick = () => {
+    modal.style.display = "block";
+  }
+
+  span.onclick = () => {
+    modal.style.display = "none";
+  }
+
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+
+
+  </body>
+</html>
+
